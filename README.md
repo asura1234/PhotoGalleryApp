@@ -161,8 +161,9 @@ Both implementations share identical service interfaces but differ in return typ
 
 ### 5. **Error Handling**
 - Consistent error types across both implementations
-- Graceful degradation with fallback UI states
-- Assertion failures for impossible states
+- Graceful degradation: individual thumbnail failures show placeholders without affecting other concurrent fetches
+- Resilient concurrent operations: one failed request doesn't break the entire loading process
+- Assertion failures for impossible states to catch development bugs
 
 ## Getting Started
 
