@@ -2,6 +2,8 @@
 
 A demonstration project showcasing clean architecture, performance optimization, and proper iOS development patterns through two different implementations: **UIKit + MVC** and **SwiftUI + MVVM**.
 
+> **Inspiration**: This project is based on a system design question from [TikTok iOS technical interview](https://samwize.com/2020/11/21/my-technical-interview-with-tiktok-ios-singapore/#google_vignette), implemented as a learning exercise to demonstrate different architectural approaches.
+
 ## Project Overview
 
 This project demonstrates best practices in iOS development by implementing the same photo gallery functionality using two different architectural approaches. The focus is on:
