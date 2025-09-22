@@ -2,7 +2,7 @@
 
 A demonstration project showcasing clean architecture, performance optimization, and proper iOS development patterns through two different implementations: **UIKit + MVC** and **SwiftUI + MVVM**.
 
-> **Inspiration**: This project is based on a system design question from [TikTok iOS technical interview](https://samwize.com/2020/11/21/my-technical-interview-with-tiktok-ios-singapore/#google_vignette), implemented as a learning exercise to demonstrate different architectural approaches.
+> **Inspiration**: This project is based on a system design question from [TikTok iOS technical interview](https://samwize.com/2020/11/21/my-technical-interview-with-tiktok-ios-singapore/#google_vignette) by @samwize, implemented as a learning exercise to demonstrate different architectural approaches.
 
 ## Project Overview
 
@@ -44,10 +44,6 @@ This project demonstrates best practices in iOS development by implementing the 
 - Sliding window approach with `maxPhotosInMemory` limit
 - `isLoading` flag to prevent overlapping requests
 
-**Performance Optimizations**:
-- Calculated `thumbnailSize` based on screen dimensions
-- Time-based throttling (500ms) for scroll events
-- Centralized loading logic in `canLoadMore`
 
 **Observer Pattern**:
 ```swift
@@ -75,10 +71,6 @@ protocol PhotoItemObserver: AnyObject {
 - Publisher chains handle complex async operations
 - No manual threading required - Combine handles it
 
-**Performance Optimizations**:
-- Combine's `flatMap` naturally handles overlapping requests
-- Built-in debouncing through publisher operators
-- Automatic memory management through ARC and publisher lifecycle
 
 **Reactive Chain Example**:
 ```swift
@@ -99,27 +91,6 @@ Both implementations share identical service interfaces but differ in return typ
 - **CacheService**: Image caching with hash-based keys
 - **FavoritingService**: Favorite photos management
 
-### Implementation Differences:
-- **UIKit**: Completion handler-based APIs
-- **SwiftUI**: Combine Publisher-based APIs
-
-## Performance Optimizations
-
-### Memory Management
-- **Sliding Window**: Keep only 100 photos in memory, remove older photos
-- **Intelligent Caching**: Separate caches for thumbnails and full images
-- **Proper Cleanup**: Automatic cache management with count limits
-
-### Threading Optimization
-- **UIKit**: Manual thread management at UI boundaries
-- **SwiftUI**: Combine handles threading automatically
-- **Services**: Thread-agnostic design for maximum flexibility
-
-### Loading Optimization
-- **Debouncing**: 500ms throttling to prevent excessive requests
-- **Request Deduplication**: Prevent overlapping load operations
-- **Calculated Sizes**: Request exact thumbnail sizes needed
-
 ## Comparison Table
 
 | Aspect | UIKit + MVC | SwiftUI + MVVM |
@@ -129,9 +100,7 @@ Both implementations share identical service interfaces but differ in return typ
 | **Async Handling** | Completion Handlers | Combine Publishers |
 | **State Management** | Manual delegation/KVO | Reactive (@Published) |
 | **Threading** | Manual `DispatchQueue` | Combine automatic |
-| **Memory Safety** | Manual `[weak self]` | ARC + Publisher lifecycle |
-| **Code Verbosity** | Higher (manual setup) | Lower (declarative) |
-| **Learning Curve** | Moderate (familiar) | Steeper (reactive concepts) |
+| **Memory Safety** | Manual `[weak self]` | ARC + Publisher 
 | **Debugging** | Traditional breakpoints | Publisher chain debugging |
 | **Performance** | Fine-grained control | Combine optimizations |
 | **Overlap Prevention** | Manual `isLoading` flag | Combine built-in handling |
@@ -145,32 +114,40 @@ Both implementations share identical service interfaces but differ in return typ
 - ViewModels/Controllers handle UI state
 - Views handle presentation only
 
-### 2. **Threading Strategy**
-- **UIKit**: Explicit control at UI boundaries
-- **SwiftUI**: Trust Combine's threading model
+### 2. **Asynchronous / Multi-threading Strategies**
+- **UIKit**: Uses GCD DispatchQueue and DispatchGroup for explicit thread management at UI boundaries
+- **SwiftUI**: Leverages Combine publishers for reactive async operations with automatic thread handling
 
 ### 3. **Memory Management**
 - Sliding window approach for large photo collections
 - Hash-based caching for efficient lookup
 - Proper cleanup and lifecycle management
 
-### 4. **Performance First**
-- Calculated thumbnail sizes prevent over-fetching
-- Debouncing prevents excessive API calls
-- Efficient observer patterns minimize unnecessary updates
+### 4. **Performance Optimizations**
+
+#### **Shared Optimizations (Both Implementations)**:
+- **In-memory caching**: NSCache for thumbnails and full images
+- **Sliding window memory management**: Loads up to 100 photos, evicts old ones as new ones load
+- **Reusable UI components**: UICollectionViewCell (UIKit) and LazyVGrid (SwiftUI) for efficient scrolling
+- **Calculated thumbnail sizes**: Request exact dimensions needed to prevent over-fetching
+- **Time-based throttling**: 500ms debouncing prevents excessive API calls
+- **Async background loading**: Non-blocking thumbnail loading for smooth UI
+
+#### **UIKit-Specific Optimizations**:
+- **Manual overlap prevention**: `isLoading` flag prevents concurrent load requests
+- **GCD threading control**: Explicit DispatchQueue and DispatchGroup management
+- **Fine-grained memory control**: Manual `[weak self]` capture lists
+
+#### **SwiftUI-Specific Optimizations**:
+- **Combine request handling**: Built-in overlapping request management through `flatMap`
+- **Reactive debouncing**: Publisher operators handle throttling automatically
+- **Automatic memory management**: ARC + Publisher lifecycle management
 
 ### 5. **Error Handling**
 - Consistent error types across both implementations
 - Graceful degradation: individual thumbnail failures show placeholders without affecting other concurrent fetches
 - Resilient concurrent operations: one failed request doesn't break the entire loading process
 - Assertion failures for impossible states to catch development bugs
-
-## Getting Started
-
-1. Clone the repository
-2. Open either implementation in Xcode
-3. Grant photo library permissions when prompted
-4. Browse your photo library with smooth performance!
 
 ## Code Quality Standards
 
