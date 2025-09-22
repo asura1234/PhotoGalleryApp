@@ -176,3 +176,20 @@ This project demonstrates:
 ## Conclusion
 
 Both implementations achieve the same functionality but showcase different approaches to iOS development. The UIKit version provides explicit control and traditional patterns, while the SwiftUI version leverages reactive programming for cleaner, more declarative code. The choice between them depends on team familiarity, project requirements, and architectural preferences.
+
+
+## Development Process
+
+This project was nearly 100% developed using AI-assisted coding with **Cursor + Claude Code**. The development process showcased a collaborative approach between human architecture and AI implementation:
+
+- **Human Architecture**: @asura1234 made all design choices and technical direction
+- **AI Implementation**: Cursor and Claude Code handled code generation based on guidance ranging from broad stroke concepts to very minute implementation details
+- **Human Code Review**: @asura1234 served as code reviewer, catching errors, and providing corrections and improvements throughout the development process
+- **Iterative Refinement**: The AI implementations were continuously and painstakingly refined based on code review
+
+This demonstrates the potential of AI-assisted development when combined with experienced human oversight and code review processes.
+
+### The Author's Personal Note on AI Coding
+I (@asura1234) am writing this section myself to tell you about my experience with AI coding in this project. AI code generation can be a really powerful companion. But the effort level from the human is **very very very** high. It's useful to explore different proof of concepts **very very** quickly. But often times, it adds things that you never explicitly asked for which the AI thinks are great to have. Other times, I'm **f***ing** shocked by the garbage it spits out. You have to have a strong **BS** detector, otherwise you're gonna think it's all sunshine and rainbows until you find yourself sitting on a mountain of s*** with barely anything good left.
+
+I came into this project not very familiar with SwiftUI, Combine, or MVVM. I could not go directly to the right solution straightaway, but I can tell if AI-generated code looks alright or not. That's why I adopted this approach. I take it as a good learning experience. But I would not recommend others to try this in their professional work. It's too much work and too painful.
