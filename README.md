@@ -150,6 +150,18 @@ Both implementations share identical service interfaces but differ in return typ
 - Resilient concurrent operations: one failed request doesn't break the entire loading process
 - Assertion failures for impossible states to catch development bugs
 
+### 6. **Future Proofing & Extensibility**
+
+#### **SwiftUI Advantages**:
+- **Built-in cancellation**: Combine's `AnyCancellable` provides automatic request cancellation out of the box
+- **Reactive scalability**: Adding features like starring, commenting, or sharing scales naturally through publisher composition
+- **Declarative updates**: New state properties automatically trigger UI updates without manual observer management
+
+#### **UIKit Challenges**:
+- **No cancellation support**: Current implementation lacks request cancellation capabilities
+- **Observer pattern complexity**: Adding features like starring and commenting would require expanding the observer pattern, leading to increasingly complex delegation chains
+- **Manual state synchronization**: Each new feature requires careful coordination of observer notifications and state updates
+
 ## Code Quality Standards
 
 This project demonstrates:
