@@ -19,7 +19,7 @@ This project demonstrates best practices in iOS development by implementing the 
 - 🖼️ Grid-based photo gallery with infinite scroll
 - 💾 Intelligent caching system for thumbnails and full images
 - ❤️ Favorite photos functionality
-- 🔍 Full-screen photo viewing
+- 🔍 Detailed photo viewing
 - 🧠 Memory management with sliding window approach
 - ⚡ Optimized performance with proper threading
 
@@ -36,6 +36,7 @@ This project demonstrates best practices in iOS development by implementing the 
 
 **Threading Strategy**:
 - `DispatchQueue.main.async` placed at the UI update level (ViewControllers)
+- `DispatchGroup` to manage concurrent fetch
 - Services remain thread-agnostic for maximum flexibility
 - Observer pattern with manual threading control
 
@@ -89,7 +90,7 @@ Both implementations share identical service interfaces but differ in return typ
 - **PhotosService**: Photo fetching and management
 - **PhotoPermissionsService**: Permission handling
 - **CacheService**: Image caching with hash-based keys
-- **FavoritingService**: Favorite photos management
+- **FavoritingService**: Favorite photos management using UserDefaults for persistence
 
 ## Comparison Table
 
@@ -98,10 +99,9 @@ Both implementations share identical service interfaces but differ in return typ
 | **Architecture Pattern** | Model-View-Controller | Model-View-ViewModel |
 | **UI Framework** | UIKit (Imperative) | SwiftUI (Declarative) |
 | **Async Handling** | Completion Handlers | Combine Publishers |
-| **State Management** | Manual delegation/KVO | Reactive (@Published) |
-| **Threading** | Manual `DispatchQueue` | Combine automatic |
+| **State Management** | Manual delegation/Observer pattern | Reactive (@Published) |
+| **Threading** | Manual `DispatchQueue` + `DispatchGroup` | Combine automatic |
 | **Memory Safety** | Manual `[weak self]` | ARC + Publisher 
-| **Debugging** | Traditional breakpoints | Publisher chain debugging |
 | **Performance** | Fine-grained control | Combine optimizations |
 | **Overlap Prevention** | Manual `isLoading` flag | Combine built-in handling |
 | **UI Updates** | Explicit calls | Automatic (@Published) |
@@ -127,6 +127,7 @@ Both implementations share identical service interfaces but differ in return typ
 
 #### **Shared Optimizations (Both Implementations)**:
 - **In-memory caching**: NSCache for thumbnails and full images
+- **Persistent favorites**: UserDefaults for storing favorited photo IDs across app launches
 - **Sliding window memory management**: Loads up to 100 photos, evicts old ones as new ones load
 - **Reusable UI components**: UICollectionViewCell (UIKit) and LazyVGrid (SwiftUI) for efficient scrolling
 - **Calculated thumbnail sizes**: Request exact dimensions needed to prevent over-fetching
@@ -141,7 +142,7 @@ Both implementations share identical service interfaces but differ in return typ
 #### **SwiftUI-Specific Optimizations**:
 - **Combine request handling**: Built-in overlapping request management through `flatMap`
 - **Reactive debouncing**: Publisher operators handle throttling automatically
-- **Automatic memory management**: ARC + Publisher lifecycle management
+- **Publisher lifecycle management**: Automatic cleanup when publishers complete or cancel
 
 ### 5. **Error Handling**
 - Consistent error types across both implementations
