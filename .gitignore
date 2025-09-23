@@ -14,3 +14,7 @@ DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
+
+# React Native
+React Native/PhotoGalleryRN/node_modules/
+React Native/PhotoGalleryRN/ios/.build/
