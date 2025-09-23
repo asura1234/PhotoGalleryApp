@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { PhotoItem } from '../../stores/PhotoGalleryStore';
-import { PhotoCardView } from '../../components';
+import { PhotoCardView } from './components';
 import { styles } from './PhotoGalleryPage.styles';
 
 interface PhotoGalleryConfig {

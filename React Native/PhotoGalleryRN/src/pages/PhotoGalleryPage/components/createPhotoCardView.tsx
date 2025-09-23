@@ -9,7 +9,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import { CardViewConfig, CardViewProps, DEFAULT_CONFIG, getHeartPositionStyle } from './PhotoCardView';
 import { styles } from './PhotoCardView.styles';
-import { photoGalleryStore } from '../stores/PhotoGalleryStore';
+import { photoGalleryStore } from '../../stores/PhotoGalleryStore';
 
 export const createPhotoCardView = (config: CardViewConfig = DEFAULT_CONFIG) => {
     const {
