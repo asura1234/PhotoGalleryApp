@@ -1,0 +1,25 @@
+{
+    "name": "@photo-gallery/components",
+    "version": "1.0.0",
+    "description": "Reusable UI components for Photo Gallery app",
+    "main": "index.ts",
+    "types": "index.ts",
+    "scripts": {
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "react": "^18.0.0",
+        "react-native": "^0.72.0",
+        "mobx": "*",
+        "mobx-react-lite": "*"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-native": "^0.72.0",
+        "typescript": "^5.0.0"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-native": ">=0.60.0"
+    }
+}

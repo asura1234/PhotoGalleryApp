@@ -1,0 +1,28 @@
+{
+  "name": "@photogallery/photo-gallery-page",
+  "version": "1.0.0",
+  "description": "Photo gallery page component for browsing and selecting photos",
+  "main": "index.tsx",
+  "private": true,
+  "keywords": [
+    "react-native",
+    "photo",
+    "gallery",
+    "grid",
+    "component"
+  ],
+  "dependencies": {
+    "react": "*",
+    "react-native": "*",
+    "mobx-react-lite": "*",
+    "@react-navigation/native": "*"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./create": "./createPhotoGalleryPage.tsx"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@photogallery/stores",
+  "version": "1.0.0",
+  "description": "MobX stores for photo gallery state management",
+  "main": "index.ts",
+  "private": true,
+  "keywords": [
+    "mobx",
+    "stores",
+    "state-management",
+    "photo-gallery",
+    "favorites"
+  ],
+  "dependencies": {
+    "mobx": "*",
+    "react-native": "*",
+    "@react-native-async-storage/async-storage": "*"
+  },
+  "peerDependencies": {
+    "mobx": ">=6.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./FavoritingStore": "./FavoritingStore.ts",
+    "./PhotoGalleryStore": "./PhotoGalleryStore.ts"
+  }
+}

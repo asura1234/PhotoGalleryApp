@@ -1,0 +1,28 @@
+{
+  "name": "@photogallery/photo-details-page",
+  "version": "1.0.0",
+  "description": "Photo details page component for viewing individual photos with metadata",
+  "main": "index.tsx",
+  "private": true,
+  "keywords": [
+    "react-native",
+    "photo",
+    "details",
+    "component",
+    "gallery"
+  ],
+  "dependencies": {
+    "react": "*",
+    "react-native": "*",
+    "mobx-react-lite": "*",
+    "@react-navigation/native": "*"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./create": "./createPhotoDetailsPage.tsx"
+  }
+}
