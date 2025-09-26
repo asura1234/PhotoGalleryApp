@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import Photos
+import SwiftUI
 
 @MainActor
 final class PhotoCellViewState: ObservableObject, Identifiable {

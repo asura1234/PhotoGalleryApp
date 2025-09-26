@@ -69,7 +69,6 @@ final class PhotoDetailsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    setupNavigationBar()
     loadFullImage()
     updateFavoriteButton()
   }
@@ -115,15 +114,6 @@ final class PhotoDetailsViewController: UIViewController {
       }, for: .touchUpInside)
   }
 
-  private func setupNavigationBar() {
-    navigationItem.leftBarButtonItem = UIBarButtonItem(
-      barButtonSystemItem: .close,
-      primaryAction: UIAction { [weak self] _ in
-        self?.handleCloseButtonTap()
-      }
-    )
-  }
-
   private func loadFullImage() {
     loadingIndicator.startAnimating()
 
@@ -154,7 +144,4 @@ final class PhotoDetailsViewController: UIViewController {
     photo.toggleFavorite()
   }
 
-  private func handleCloseButtonTap() {
-    dismiss(animated: true)
-  }
 }

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PhotoDetailsView: View {
   @StateObject private var viewModel: PhotoDetailsViewModel
-  @Environment(\.dismiss) private var dismiss
 
   init(photo: PhotoCellViewState) {
     self._viewModel = StateObject(wrappedValue: PhotoDetailsViewModel(photo: photo))
@@ -24,13 +23,6 @@ struct PhotoDetailsView: View {
       }
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        ToolbarItem(placement: .navigationBarLeading) {
-          Button("Back") {
-            dismiss()
-          }
-          .foregroundColor(.white)
-        }
-
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(action: {
             viewModel.toggleFavorite()
