@@ -17,7 +17,7 @@ final class PhotoCellViewState: ObservableObject, Identifiable {
     self.isFavorite = Self.favoritingService.isFavorite(assetIdentifier: asset.localIdentifier)
   }
 
-  var id: String {
+  nonisolated var id: String {
     return asset.localIdentifier
   }
 
