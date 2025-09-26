@@ -30,6 +30,8 @@ final class PhotoDetailsViewModel: ObservableObject {
     errorMessage = nil
 
     loadImageCancellable = Self.photosService.fetchFullImage(for: photo.asset)
+      .subscribe(on: DispatchQueue.global())
+      .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { [weak self] completion in
           guard let self = self else { return }

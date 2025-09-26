@@ -70,7 +70,9 @@ final class PhotoGalleryViewModel: ObservableObject {
         }
       }
       .handleEvents(receiveOutput: { [weak self] newStates in
-        self?.appendPhotoStates(newStates)
+        DispatchQueue.main.async {
+          self?.appendPhotoStates(newStates)
+        }
       })
       .flatMap { newStates in
         let assets = newStates.map { $0.asset }
@@ -80,6 +82,7 @@ final class PhotoGalleryViewModel: ObservableObject {
             return (newStates[thumbnailArrayIndex], result)
           }
       }
+      .receive(on: DispatchQueue.main)
       .sink { cellState, result in
         switch result {
         case .success(let thumbnail):
