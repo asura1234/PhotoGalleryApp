@@ -15,24 +15,20 @@ final class PhotosService {
 
   private init() {}
 
-
   func fetchPhotos(startIndex: Int, batchSize: Int, completion: @escaping ([PHAsset]) -> Void) {
     let fetchOptions = PHFetchOptions()
     fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
 
-    let assets = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-    var photoAssets: [PHAsset] = []
+    let result = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+    let endIndex = min(startIndex + batchSize, result.count)
 
-    let endIndex = min(startIndex + batchSize, assets.count)
-    guard startIndex < assets.count else {
+    guard startIndex < result.count else {
       completion([])
       return
     }
 
-    for i in startIndex..<endIndex {
-      photoAssets.append(assets.object(at: i))
-    }
-
+    let indexSet = IndexSet(integersIn: startIndex..<endIndex)
+    let photoAssets = result.objects(at: indexSet)
     completion(photoAssets)
   }
 
@@ -44,7 +40,8 @@ final class PhotosService {
   }
 
   func fetchThumbnail(
-    for asset: PHAsset, targetSize: CGSize, completion: @escaping (Result<UIImage, PhotosServiceError>) -> Void
+    for asset: PHAsset, targetSize: CGSize,
+    completion: @escaping (Result<UIImage, PhotosServiceError>) -> Void
   ) {
     // Create efficient hash-based cache key
     let cacheHash = "\(asset.localIdentifier)_thumbnail".hashValue
@@ -83,7 +80,9 @@ final class PhotosService {
     }
   }
 
-  func fetchFullImage(for asset: PHAsset, completion: @escaping (Result<UIImage, PhotosServiceError>) -> Void) {
+  func fetchFullImage(
+    for asset: PHAsset, completion: @escaping (Result<UIImage, PhotosServiceError>) -> Void
+  ) {
     // Create efficient hash-based cache key
     let cacheHash = "\(asset.localIdentifier)_full".hashValue
 

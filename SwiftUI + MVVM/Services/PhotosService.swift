@@ -17,7 +17,6 @@ final class PhotosService {
 
   private init() {}
 
-
   func getTotalPhotoCount() -> Int {
     let fetchOptions = PHFetchOptions()
     fetchOptions.fetchLimit = 0
@@ -30,19 +29,17 @@ final class PhotosService {
       let fetchOptions = PHFetchOptions()
       fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
 
-      let assets = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-      var result: [PHAsset] = []
-
+      let result = PHAsset.fetchAssets(with: .image, options: fetchOptions)
       let endIndex = min(startIndex + batchSize, assets.count)
+
       guard startIndex < assets.count else {
         promise(.success([]))
         return
       }
 
-      for i in startIndex..<endIndex {
-        result.append(assets.object(at: i))
-      }
-      promise(.success(result))
+      let indexSet = IndexSet(integersIn: startIndex..<endIndex)
+      let assets = result.objects(at: indexSet)
+      promise(.success(assets))
     }
     .eraseToAnyPublisher()
   }
@@ -83,7 +80,6 @@ final class PhotosService {
     }
     .eraseToAnyPublisher()
   }
-
 
   func fetchThumbnails(for assets: [PHAsset], targetSize: CGSize = CGSize(width: 200, height: 200))
     -> AnyPublisher<(Int, Result<UIImage, Error>), Never>
